@@ -20,10 +20,10 @@
                     <div class="card">
                         <div class="card body">
                             <h5 class="card-title">
-                                <a href="#">{{ property.title }}</a>
+                                <a href="{{ path('property.show', {id: property.id, slug: property.slug}) }}">{{ property.title }}</a>
                             </h5>
-                            <div class="p card-text">{{ property.city }} ({{ property.postalCode }})</div>
-                            <div class="text-primary">{{ property.price }}</div>
+                            <p class="p card-text">{{ property.city }} ({{ property.postalCode }})</p>
+                            <div class="text-primary" style="font-weight: bold; font-size: 2rem">{{ property.formattedPrice }} €</div>
                         </div>
                     </div>
                 </div>
