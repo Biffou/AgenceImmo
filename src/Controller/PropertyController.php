@@ -50,7 +50,7 @@ class PropertyController extends AbstractController
 
         $properties = $paginator->paginate(
             $this->repository->findAllVisibleQuery($search),
-        $request->query->getInt('page', 1),
+            $request->query->getInt('page', 1),
             12
         );
         return $this->render('property/index.html.twig', [

@@ -31,15 +31,26 @@ class PropertyRepository extends ServiceEntityRepository
         $query =  $this->findVisibleQuery();
 
         if ($search->getMaxPrice()){
-            $query = $query->andWhere('p.price <= :maxprice');
-            $query->setParameter('maxprice', $search->getMaxPrice());
+            $query = $query
+                ->andWhere('p.price <= :maxprice')
+                ->setParameter('maxprice', $search->getMaxPrice());
         }
 
         if ($search->getMinSurface()){
-            $query = $query->andWhere('p.surface >= :minsurface');
-            $query->setParameter('minsurface', $search->getMinSurface());
+            $query = $query
+                ->andWhere('p.surface >= :minsurface')
+                ->setParameter('minsurface', $search->getMinSurface());
         }
 
+        if ($search->getOptions()->count() > 0){
+            $k = 0;
+            foreach ($search->getOptions() as $option) {
+                $k++;
+                $query = $query
+                ->andWhere(":option$k MEMBER OF p.options")
+                ->setParameter("option$k", $option);
+            }
+        }
             return $query->getQuery();
     }
 
